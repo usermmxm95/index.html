@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mary's Cakes – Handgemachte Torten</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #D85A30;
+      --orange-dark: #993C1D;
+      --orange-light: #FAECE7;
+      --cream: #FAEEDA;
+      --text-dark: #2C2C2A;
+      --text-mid: #5F5E5A;
+      --text-light: #888780;
+      --border: rgba(0,0,0,0.12);
+      --bg: #fff;
+      --bg-secondary: #F9F7F4;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-dark);
+    }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 1.75rem; }
+    .nav-links a {
+      font-size: 12px;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--orange-light) 0%, var(--cream) 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '🎂';
+      position: absolute;
+      font-size: 160px;
+      opacity: 0.06;
+      top: -20px;
+      right: 40px;
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+      font-weight: 700;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      line-height: 1.15;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-mid);
+      max-width: 440px;
+      margin: 0 auto 2rem;
+    }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.3px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--orange);
+      border: 1.5px solid var(--orange);
+      padding: 14px 32px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: var(--orange-light); }
+
+    /* ── SECTIONS ── */
+    .section { padding: 3.5rem 2rem; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: var(--text-dark);
+      margin-bottom: 2rem;
+    }
+
+    /* ── CAKE GRID ── */
+    .cake-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .cake-card {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cake-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+    .cake-thumb {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      background: #F1EFE8;
+    }
+    .cake-info { padding: 1rem 1.1rem 1.1rem; }
+    .cake-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .cake-desc {
+      font-size: 13px;
+      color: var(--text-mid);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .cake-footer { display: flex; align-items: center; justify-content: space-between; }
+    .cake-price { font-size: 18px; font-weight: 700; color: var(--orange); }
+    .cake-size { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+    .bestell-btn {
+      font-size: 12px;
+      background: var(--orange-light);
+      color: var(--orange-dark);
+      border: none;
+      border-radius: 20px;
+      padding: 6px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Lato', sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+    .bestell-btn:hover { background: var(--orange); color: #fff; }
+
+    /* ── FEATURES ── */
+    .features { background: var(--bg-secondary); padding: 3.5rem 2rem; }
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .feat-card {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+    }
+    .feat-icon { font-size: 26px; color: var(--orange); margin-bottom: 10px; }
+    .feat-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text-dark); }
+    .feat-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+    /* ── ORDER FORM ── */
+    .order-section {
+      padding: 3.5rem 2rem;
+      background: var(--orange-light);
+    }
+    .order-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border: 0.5px solid var(--border);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 540px) {
+      .form-row { grid-template-columns: 1fr; }
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .hero h1 { font-size: 32px; }
+    }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-mid);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 0.5px solid rgba(0,0,0,0.2);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      background: #fff;
+      color: var(--text-dark);
+      font-family: 'Lato', sans-serif;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+    textarea { resize: vertical; min-height: 90px; }
+    .form-full { grid-column: 1 / -1; }
+    .order-submit {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 15px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.3px;
+      transition: background 0.2s;
+    }
+    .order-submit:hover { background: var(--orange-dark); }
+
+    /* ── SUCCESS ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+    .success-msg .s-icon {
+      font-size: 48px;
+      color: #3B6D11;
+      margin-bottom: 12px;
+    }
+    .success-msg h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: #3B6D11;
+      margin-bottom: 8px;
+    }
+    .success-msg p { font-size: 14px; color: var(--text-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 0.5px solid var(--border);
+      background: #fff;
+    }
+    footer .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    footer .footer-name span { color: var(--orange); }
+    footer p { font-size: 13px; color: var(--text-mid); line-height: 1.9; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Mary's <span>Cakes</span></div>
+    <div class="nav-links">
+      <a href="#torten">Torten</a>
+      <a href="#bestellen">Bestellen</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Hausgemacht mit Liebe</div>
+    <h1>Torten, die<br><em>unvergesslich</em> sind</h1>
+    <p>Jede Torte wird frisch nach Ihrer Bestellung gebacken – aus hochwertigen Zutaten, mit viel Leidenschaft.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('torten').scrollIntoView({behavior:'smooth'})">Torten ansehen</button>
+      <button class="btn-secondary" onclick="document.getElementById('bestellen').scrollIntoView({behavior:'smooth'})">Jetzt bestellen</button>
+    </div>
+  </section>
+
+  <!-- TORTEN -->
+  <section class="section" id="torten">
+    <div class="section-label">Meine Kreationen</div>
+    <div class="section-title">Handgefertigte Torten</div>
+    <div class="cake-grid">
+      <div class="cake-card">
+        <div class="cake-thumb">🍓</div>
+        <div class="cake-info">
+          <div class="cake-name">Erdbeer-Sahne</div>
+          <div class="cake-desc">Frische Erdbeeren auf luftiger Sahne, Biskuitboden</div>
+          <div class="cake-footer">
+            <div>
+              <div class="cake-price">ab €28</div>
+              <div class="cake-size">6 Personen</div>
+            </div>
+            <button class="bestell-btn" onclick="document.getElementById('bestellen').scrollIntoView({behavior:'smooth'});document.getElementById('torte-select').value='erdbeer'">Bestellen</button>
+          </div>
+        </div>
+      </div>
+      <div class="cake-card">
+        <div class="cake-thumb">🍫</div>
+        <div class="cake-info">
+          <div class="cake-name">Schokoladen-Traum</div>
+          <div class="cake-desc">Dunkle Schokolade, Ganache, knuspriger Kern</div>
+          <div class="cake-footer">
+            <div>
+              <div class="cake-price">ab €32</div>
+              <div class="cake-size">6 Personen</div>
+            </div>
+            <button class="bestell-btn" onclick="document.getElementById('bestellen').scrollIntoView({behavior:'smooth'});document.getElementById('torte-select').value='schokolade'">Bestellen</button>
+          </div>
+        </div>
+      </div>
+      <div class="cake-card">
+        <div class="cake-thumb">🍋</div>
+        <div class="cake-info">
+          <div class="cake-name">Zitronen-Torte</div>
+          <div class="cake-desc">Frische Zitrone, Buttercreme, leicht & fruchtig</div>
+          <div class="cake-footer">
+            <div>
+              <div class="cake-price">ab €26</div>
+              <div class="cake-size">6 Personen</div>
+            </div>
+            <button class="bestell-btn" onclick="document.getElementById('bestellen').scrollIntoView({behavior:'smooth'});document.getElementById('torte-select').value='zitrone'">Bestellen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-label">Warum ich?</div>
+    <div class="section-title">Mit Herz gebacken</div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-leaf" aria-hidden="true"></i></div>
+        <div class="feat-title">Frische Zutaten</div>
+        <div class="feat-text">Nur saisonale, regionale Produkte – kein Fertigmix.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-adjustments" aria-hidden="true"></i></div>
+        <div class="feat-title">Nach Wunsch</div>
+        <div class="feat-text">Größe, Dekor und Geschmack – alles individuell anpassbar.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon"><i class="ti ti-truck-delivery" aria-hidden="true"></i></div>
+        <div class="feat-title">Lieferung</div>
+        <div class="feat-text">Abholung oder Lieferung im Umkreis von 20 km möglich.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BESTELLUNG -->
+  <section class="order-section" id="bestellen">
+    <div class="section-label" style="text-align:center">Bestellung</div>
+    <div class="section-title" style="text-align:center;color:#2C2C2A">Ihre Traumtorte anfragen</div>
+    <div class="order-card">
+      <div id="order-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" placeholder="Maria" id="fname">
+          </div>
+          <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" placeholder="Müller" id="lname">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>E-Mail</label>
+            <input type="email" placeholder="maria@beispiel.de" id="email">
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+43 123 456 789" id="phone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Gewünschte Torte</label>
+            <select id="torte-select">
+              <option value="">Bitte wählen...</option>
+              <option value="erdbeer">Erdbeer-Sahne</option>
+              <option value="schokolade">Schokoladen-Traum</option>
+              <option value="zitrone">Zitronen-Torte</option>
+              <option value="sonder">Sonderwunsch</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Gewünschtes Datum</label>
+            <input type="date" id="datum">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group form-full">
+            <label>Anmerkungen / Sonderwünsche</label>
+            <textarea placeholder="z.B. glutenfrei, bestimmte Farben, Aufschrift..." id="notes"></textarea>
+          </div>
+        </div>
+        <button class="order-submit" onclick="submitOrder()">Bestellung absenden ✓</button>
+      </div>
+      <div class="success-msg" id="success-msg">
+        <div class="s-icon"><i class="ti ti-circle-check" aria-hidden="true"></i></div>
+        <h3>Vielen Dank!</h3>
+        <p>Ihre Anfrage wurde übermittelt.<br>Ich melde mich innerhalb von 24 Stunden bei Ihnen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="kontakt">
+    <div class="footer-name">Mary's <span>Cakes</span></div>
+    <p>Handgemachte Torten mit Liebe</p>
+    <p>📧 hallo@maryscakes.at &nbsp;|&nbsp; 📞 +43 123 456 789</p>
+    <p style="margin-top:12px;font-size:12px;color:#B4B2A9">© 2026 Mary's Cakes – Mit ❤️ gebacken</p>
+  </footer>
+
+  <script>
+    function submitOrder() {
+      const fname = document.getElementById('fname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const torte = document.getElementById('torte-select').value;
+      if (!fname || !email || !torte) {
+        alert('Bitte füllen Sie Name, E-Mail und Tortenauswahl aus.');
+        return;
+      }
+      document.getElementById('order-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
